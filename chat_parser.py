@@ -12,10 +12,15 @@ class ChatParser(object):
         # initial data
         return_data = {}
 
+
+        # Used for stripping out symbols
+        translate_table = str.maketrans('','','@()')
+
+
         # Find mentions.
         mentions = re.findall("@\w+",input_string)
         if mentions:
-            return_data['mentions'] = mentions
+            return_data['mentions'] = [ mention.translate(translate_table) for mention in mentions ]
 
         # Find emoticons.
         emoticons = re.findall("\(\s*\w+\s*\)",input_string)
