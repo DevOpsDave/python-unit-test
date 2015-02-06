@@ -12,10 +12,8 @@ class ChatParser(object):
         # initial data
         return_data = {}
 
-
         # Used for stripping out symbols
         translate_table = str.maketrans('','','@()')
-
 
         # Find mentions.
         mentions = re.findall("@\w+",input_string)
@@ -26,6 +24,9 @@ class ChatParser(object):
         emoticons = re.findall("\(\s*\w+\s*\)",input_string)
         if emoticons:
             return_data['emoticons'] = [ emoticon.translate(translate_table) for emoticon in emoticons ]
+
+        # Find links.
+        links = re.findall(r"(http://[^ ]+)", input_string)
 
         return json.dumps(return_data)
 

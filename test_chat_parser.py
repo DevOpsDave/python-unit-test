@@ -30,6 +30,17 @@ class TestChatParser(unittest.TestCase):
         print("Output is: ", output)
         self.assertEqual(output, should_return)
 
+    def test_links(self):
+        input_string = 'Olympics are starting soon; http://www.nbcolympics.com'
+        output = self.cpobj.parse_string(input_string)
+        should_return = json.dumps({ "links": [ { "url": "http://www.nbcolympics.com", "title": "NBC Olympics | 2014 NBC Olympics in Sochi Russia"}]})
+        print("Input_string is: ", input_string)
+        print("Output is: ", output)
+        self.assertEqual(output, should_return)
+
+
+
+
 
 
 
