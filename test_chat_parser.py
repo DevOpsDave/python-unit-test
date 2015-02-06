@@ -17,6 +17,7 @@ class TestChatParser(unittest.TestCase):
     def test_mentions(self):
         output = self.cpobj.parse_string('Hey @bob, hipchat is cool')
         should_return = json.dumps({ "mentions": ["bob"] })
+        print("Output is: %s", output)
         self.assertEqual(output, should_return)
 
 
