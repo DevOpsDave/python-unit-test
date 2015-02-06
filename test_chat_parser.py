@@ -15,10 +15,21 @@ class TestChatParser(unittest.TestCase):
         self.assertEqual(output, '{}', 'A string with no symbols should return {}')
 
     def test_mentions(self):
-        output = self.cpobj.parse_string('Hey @bob, hipchat is cool')
+        input_string = 'Hey @bob, hipchat is cool'
+        output = self.cpobj.parse_string(input_string)
         should_return = json.dumps({ "mentions": ["bob"] })
-        print("Output is: %s", output)
+        print("Input_string is: ", input_string)
+        print("Output is: ", output)
         self.assertEqual(output, should_return)
+
+    def test_emoticons(self):
+        input_string = 'Yo, good job! (success)'
+        output = self.cpobj.parse_string(input_string)
+        should_return = json.dumps({ "emoticons": ["success"] })
+        print("Input_string is: ", input_string)
+        print("Output is: ", output)
+        self.assertEqual(output, should_return)
+
 
 
 

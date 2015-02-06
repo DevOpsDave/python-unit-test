@@ -25,7 +25,7 @@ class ChatParser(object):
         # Find emoticons.
         emoticons = re.findall("\(\s*\w+\s*\)",input_string)
         if emoticons:
-            return_data['emoticons'] = emoticons
+            return_data['emoticons'] = [ emoticon.translate(translate_table) for emoticon in emoticons ]
 
         return json.dumps(return_data)
 
