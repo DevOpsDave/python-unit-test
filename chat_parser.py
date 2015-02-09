@@ -1,5 +1,9 @@
+#!/usr/bin/env python -W ignore::DeprecationWarning
+
 import json
 import re
+from urllib import request
+from bs4 import BeautifulSoup
 
 class ChatParser(object):
 
@@ -27,6 +31,12 @@ class ChatParser(object):
 
         # Find links.
         links = re.findall(r"(http://[^ ]+)", input_string)
+        if links:
+            for link in links:
+                page_data = request.urlopen(link).read()
+                title = BeautifulSoup(page_data).title
+                return_data["links"] = list()
+                return_data["links"].append({ "url": link, "title": str(title.string) })
 
         return json.dumps(return_data)
 
