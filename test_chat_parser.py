@@ -47,12 +47,12 @@ class TestChatParser(unittest.TestCase):
 
     def test_links(self):
         input_string = 'Olympics are starting soon; http://www.nbcolympics.com'
-        should_data = { "links": [ {"url": "http://www.nbcolympics.com", "title": "NBC Olympics | Home of the 2016 Olympic Games in Rio"  } ] }
+        should_data = {"links": [{"url": "http://www.nbcolympics.com", "title": "NBC Olympics | Home of the 2016 Olympic Games in Rio"}]}
         self.helper('Test links', input_string, should_data)
 
     def test_multi_links(self):
         input_string = 'First go here: http://www.google.com and then go here: http://www.nbcolympics.com'
-        should_data = { "links": [ { "url": "http://www.google.com", "title": "Google" } ] }
+        should_data = {"links": [{"url": "http://www.google.com", "title": "Google"}]}
         should_data["links"].append({ "url": "http://www.nbcolympics.com", "title": "NBC Olympics | Home of the 2016 Olympic Games in Rio" })
         self.helper('Test multi links', input_string, should_data)
 
@@ -60,7 +60,7 @@ class TestChatParser(unittest.TestCase):
         input_string = "@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016"
         url = 'https://twitter.com/jdorfman/status/430511497475670016'
         title = 'Justin Dorfman on Twitter: "nice @littlebigdetail from @HipChat (shows hex colors when pasted in chat). http://t.co/7cI6Gjy5pq"'
-        should_data = { "mentions": ["bob","john"], "emoticons": ["success"], "links": [ { "url": url, "title": title } ] }
+        should_data = { "mentions": ["bob","john"], "emoticons": ["success"], "links": [{"url": url, "title": title}]}
         self.helper('Test all', input_string, should_data)
 
 if __name__ == '__main__':
