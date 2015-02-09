@@ -1,4 +1,8 @@
 #!/usr/bin/env python -W ignore::DeprecationWarning
+# Script parses a string for symbols and outputs a json string that breaks out the mentions, links, emoticons.
+# Usage example:
+# chat_parser_obj = ChatParser()
+# json_string_output = chat_parser_obj.parse_string('@bob @john (success) such a cool feature')
 
 import json
 import re
@@ -7,6 +11,7 @@ from bs4 import BeautifulSoup
 
 class ChatParser(object):
 
+    # Main method to use.
     def parse_string(self, input_string):
         output = self.__process_string__(input_string)
         return output
