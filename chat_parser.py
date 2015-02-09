@@ -11,7 +11,6 @@ class ChatParser(object):
         output = self.__process_string__(input_string)
         return output
 
-
     def __process_string__(self, input_string):
         # initial data
         return_data = {}
@@ -30,7 +29,7 @@ class ChatParser(object):
             return_data['emoticons'] = [ emoticon.translate(translate_table) for emoticon in emoticons ]
 
         # Find links.
-        links = re.findall(r"(http://[^ ]+)", input_string)
+        links = re.findall(r"(https{0,1}://[^ ]+)", input_string)
         if links:
             for link in links:
                 page_data = request.urlopen(link).read()
@@ -39,10 +38,5 @@ class ChatParser(object):
                 return_data["links"].append({ "url": link, "title": str(title.string) })
 
         return json.dumps(return_data)
-
-
-
-
-
 
 
