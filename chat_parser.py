@@ -9,6 +9,8 @@ import re
 from urllib import request
 from bs4 import BeautifulSoup
 
+from IPython import embed
+
 class ChatParser(object):
 
     # Main method to use.
@@ -24,23 +26,23 @@ class ChatParser(object):
         translate_table = str.maketrans('','','@()')
 
         # Find mentions.
-        mentions = re.findall("@\w+",input_string)
+        mentions = re.findall(r"@\w+",input_string)
         if mentions:
             return_data['mentions'] = [ mention.translate(translate_table) for mention in mentions ]
 
         # Find emoticons.
-        emoticons = re.findall("\(\s*\w+\s*\)",input_string)
+        emoticons = re.findall(r"\(\s*\w+\s*\)",input_string)
         if emoticons:
             return_data['emoticons'] = [ emoticon.translate(translate_table) for emoticon in emoticons ]
 
         # Find links.
         links = re.findall(r"(https{0,1}://[^ ]+)", input_string)
         if links:
+            return_data["links"] = list()
             for link in links:
                 page_data = request.urlopen(link).read()
-                title = BeautifulSoup(page_data).title
-                return_data["links"] = list()
-                return_data["links"].append({ "url": link, "title": str(title.string) })
+                title = BeautifulSoup(page_data).title.string
+                return_data["links"].append({"url": link, "title": str(title)})
 
         return json.dumps(return_data)
 
